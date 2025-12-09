@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Vue Contact Manager</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="app">
+    <div class="app">
+      <header class="app-header">
+        <h1>Contact Manager</h1>
+        <p>Vue.js + localStorage. Ready for Netlify.</p>
+      </header>
+
+      <main class="app-main">
+        <!-- Left: Add contact -->
+        <section class="panel panel-form">
+          <h2>Add New Contact</h2>
+          <form @submit.prevent="addContact" autocomplete="off">
+            <div class="form-group">
+              <label for="name">Name <span class="required">*</span></label>
+              <input
+                id="name"
+                type="text"
+                v-model.trim="newContact.name"
+                required
+                placeholder="e.g. Jane Doe"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email <span class="required">*</span></label>
+              <input
+                id="email"
+                type="email"
+                v-model.trim="newContact.email"
+                required
+                placeholder="e.g. jane@example.com"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="phone">Phone</label>
+              <input
+                id="phone"
+                type="tel"
+                v-model.trim="newContact.phone"
+                placeholder="e.g. +1 555 123 4567"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="notes">Notes</label>
+              <textarea
+                id="notes"
+                rows="3"
+                v-model.trim="newContact.notes"
+                placeholder="Company, role, how you met, etc."
+              ></textarea>
+            </div>
+
+            <button type="submit" class="btn primary">
+              Add Contact
+            </button>
+          </form>
+        </section>
+
+        <!-- Right: Search + list -->
+        <section class="panel panel-list">
+          <div class="list-header">
+            <h2>Your Contacts</h2>
+            <input
+              type="text"
+              v-model.trim="searchQuery"
+              placeholder="Search by name or email..."
+              aria-label="Search contacts"
+            />
+          </div>
+
+          <div
+            id="empty-state"
+            class="empty-state"
+            v-if="filteredContacts.length === 0"
+          >
+            <p>No contacts yet.</p>
+            <p>Add your first contact using the form on the left.</p>
+          </div>
+
+          <ul id="contact-list" class="contact-list">
+            <li
+              v-for="contact in filteredContacts"
+              :key="contact.id"
+              class="contact-item"
+            >
+              <div class="contact-main">
+                <div class="contact-name">{{ contact.name }}</div>
+
+                <div class="contact-meta" v-if="contact.email || contact.phone">
+                  <span v-if="contact.email">{{ contact.email }}</span>
+                  <span v-if="contact.phone">{{ contact.phone }}</span>
+                </div>
+
+                <div
+                  class="contact-notes"
+                  v-if="contact.notes"
+                >
+                  {{ contact.notes }}
+                </div>
+              </div>
+
+              <div class="contact-actions">
+                <button
+                  type="button"
+                  class="btn btn-danger"
+                  @click="deleteContact(contact.id)"
+                >
+                  Delete
+                </button>
+              </div>
+            </li>
+          </ul>
+        </section>
+      </main>
+
+      <footer class="app-footer">
+        <small>Contacts are saved locally in your browser (localStorage).</small>
+      </footer>
+    </div>
+  </div>
+
+  <!-- Vue 3 from CDN -->
+  <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
