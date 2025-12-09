@@ -1,0 +1,344 @@
+:root {
+  --bg: #0f172a;
+  --panel-bg: #020617;
+  --panel-alt: #020617;
+  --accent: #3b82f6;
+  --accent-soft: rgba(59, 130, 246, 0.15);
+  --accent-strong: #2563eb;
+  --text-main: #e5e7eb;
+  --text-muted: #9ca3af;
+  --border-subtle: #1f2937;
+  --danger: #ef4444;
+  --danger-soft: rgba(248, 113, 113, 0.15);
+  --radius-xl: 1.25rem;
+  --shadow-soft: 0 18px 40px rgba(15, 23, 42, 0.75);
+}
+
+/* Reset-ish */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: radial-gradient(circle at top, #1d283a 0, #020617 55%, #020617 100%);
+  color: var(--text-main);
+  min-height: 100vh;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+}
+
+.app {
+  max-width: 1100px;
+  width: 100%;
+  margin: 24px 16px;
+  background: linear-gradient(145deg, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.98));
+  border-radius: 2rem;
+  box-shadow: var(--shadow-soft);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid rgba(148, 163, 184, 0.1);
+}
+
+.app-header {
+  padding: 24px 28px 12px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.app-header h1 {
+  margin: 0 0 4px;
+  font-size: 1.6rem;
+  letter-spacing: 0.03em;
+}
+
+.app-header p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.app-main {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.4fr);
+  gap: 20px;
+  padding: 20px 24px 16px;
+}
+
+.panel {
+  background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.99));
+  border-radius: var(--radius-xl);
+  padding: 18px 18px 16px;
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  position: relative;
+  overflow: hidden;
+}
+
+/* subtle glow corners */
+.panel::before {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  background: radial-gradient(circle at 0 0, rgba(59, 130, 246, 0.12), transparent 60%);
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+/* Form panel */
+.panel-form h2,
+.panel-list h2 {
+  margin: 0 0 12px;
+  font-size: 1.1rem;
+}
+
+.form-group {
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.form-group label {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.required {
+  color: var(--accent);
+}
+
+input,
+textarea {
+  border-radius: 0.9rem;
+  border: 1px solid rgba(31, 41, 55, 0.9);
+  padding: 8px 11px;
+  font-size: 0.9rem;
+  background-color: rgba(15, 23, 42, 0.9);
+  color: var(--text-main);
+  outline: none;
+  transition: border 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: rgba(148, 163, 184, 0.8);
+}
+
+input:focus,
+textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.2);
+  background-color: rgba(15, 23, 42, 1);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 60px;
+}
+
+/* Buttons */
+.btn {
+  border-radius: 999px;
+  padding: 9px 14px;
+  border: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: transform 0.08s ease, box-shadow 0.08s ease, background-color 0.12s ease, opacity 0.12s ease;
+  user-select: none;
+}
+
+.btn.primary {
+  background: radial-gradient(circle at 0 0, var(--accent), var(--accent-strong));
+  color: white;
+  box-shadow: 0 8px 18px rgba(37, 99, 235, 0.45);
+  width: 100%;
+  margin-top: 6px;
+}
+
+.btn.primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(37, 99, 235, 0.6);
+}
+
+.btn.primary:active {
+  transform: translateY(0);
+  box-shadow: 0 5px 12px rgba(37, 99, 235, 0.5);
+}
+
+/* List panel */
+.panel-list {
+  display: flex;
+  flex-direction: column;
+  min-height: 260px;
+}
+
+.list-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.list-header h2 {
+  margin: 0;
+  flex: 1;
+}
+
+.list-header input {
+  flex: 1.2;
+}
+
+/* Empty state */
+.empty-state {
+  text-align: center;
+  padding: 32px 10px;
+  border-radius: 1rem;
+  border: 1px dashed rgba(148, 163, 184, 0.45);
+  background: radial-gradient(circle at top, rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.96));
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+/* Contact list */
+.contact-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 360px;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.contact-item {
+  border-radius: 1rem;
+  padding: 10px 11px;
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.96));
+  border: 1px solid rgba(31, 41, 55, 0.9);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+  transition: background-color 0.14s ease, border 0.14s ease, transform 0.08s ease;
+}
+
+.contact-item:hover {
+  border-color: rgba(59, 130, 246, 0.5);
+  background: linear-gradient(135deg, rgba(15, 23, 42, 1), rgba(15, 23, 42, 0.97));
+  transform: translateY(-1px);
+}
+
+.contact-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.contact-name {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.contact-meta {
+  margin-top: 2px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.contact-meta span + span::before {
+  content: " • ";
+  margin: 0 4px;
+}
+
+.contact-notes {
+  margin-top: 4px;
+  font-size: 0.8rem;
+  color: rgba(209, 213, 219, 0.95);
+  line-height: 1.35;
+}
+
+.contact-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.btn-danger {
+  background: var(--danger-soft);
+  color: #fecaca;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  border: 1px solid rgba(248, 113, 113, 0.5);
+}
+
+.btn-danger:hover {
+  background: rgba(248, 113, 113, 0.25);
+}
+
+/* Footer */
+.app-footer {
+  padding: 6px 24px 16px;
+  border-top: 1px solid var(--border-subtle);
+  text-align: right;
+}
+
+.app-footer small {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+/* Scrollbar styling (optional) */
+.contact-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.contact-list::-webkit-scrollbar-thumb {
+  background: rgba(55, 65, 81, 0.9);
+  border-radius: 999px;
+}
+
+.contact-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Responsive */
+@media (max-width: 800px) {
+  .app {
+    margin: 10px;
+    border-radius: 1.5rem;
+  }
+
+  .app-main {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .panel {
+    padding: 14px 14px 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .app-header {
+    padding: 18px 16px 8px;
+  }
+
+  .app-main {
+    padding: 16px 12px 10px;
+    gap: 14px;
+  }
+
+  .list-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
